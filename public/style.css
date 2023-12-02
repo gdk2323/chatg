@@ -1,0 +1,116 @@
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'SF Pro Display', sans-serif;
+  background-color: #f2f2f2;
+  scroll-behavior: auto;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+}
+
+.backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.backToTop.show {
+  visibility: visible;
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  line-height: 1.6;
+  hyphens: auto;
+  max-width: 100%;
+}
+
+.input-group {
+  position: relative;
+  display: inline-block;
+}
+
+#urlInput {
+  padding-right: 40px; /* Increase the padding to make space for the button */
+}
+
+#pasteButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 30px;
+  width: 100px; /* Adjust the width as needed */
+}
+
+button {
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#scrapeButton {
+  width: 100%;
+}
+
+#nextChapterHref {
+  float: right;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: .5rem;
+  justify-content: center;
+}
+
+.input-group {
+  width: 100%;
+}
+
+input[type="text"] {
+  display: block;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 30px;
+  width: 100% !important;
+}
+
+
+/* Style for the copy button container */
+/* Style for the copy button container */
+.copyButtonGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(25% - 0.5rem), 1fr));
+  gap: 0.5rem;
+  justify-content: flex-start; /* Align items to the start of the container */
+
+  /* Add additional styles as needed for your buttons */
+}
+

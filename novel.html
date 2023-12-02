@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Novel Reader</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">My Novel</h1>
+    <div class="content">
+      <p>Chapter 1</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec mauris auctor, pellentesque risus et, aliquam mauris. Suspendisse potenti. Morbi id magna ut lectus fringilla placerat. Sed sed pellentesque nisl. Aliquam id nunc in velit sagittis efficitur. Curabitur auctor semper turpis et luctus. Curabitur auctor semper turpis et luctus.</p>
+      <!-- More content here -->
+    </div>
+  </div>
+  <script>
+    const API_URL = 'https://gpt4.xunika.uk/api/openai/v1/chat/completions';
+
+    let controller; // AbortController instance
+
+    const generate = async (message) => {
+      controller = new AbortController();
+      const signal = controller.signal;
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: message }],
+            stream: true,
+          }),
+          signal,
+        });
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        resultText.innerText = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) {
+            break;
+          }
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split("\n");
+          const parsedLines = lines
+            .map((line) => line.replace(/^data: /, "").trim())
+            .filter((line) => line !== "" && line !== "[DONE]")
+            .map((line) => JSON.parse(line));
+
+          for (const parsedLine of parsedLines) {
+            const { choices } = parsedLine;
+            const { delta } = choices[0];
+            const { content } = delta;
+
+            if (content) {
+              resultText.innerText += content;
+
+              // Print response on console
+              console.log('AI Response:', content);
+            }
+          }
+        }
+      } catch (error) {
+        if (signal.aborted) {
+          resultText.innerText = "Request aborted.";
+        } else {
+          console.error("Error:", error);
+          resultText.innerText = "Error occurred while generating.";
+        }
+      } finally {
+        generateBtn.disabled = false;
+        stopBtn.disabled = true;
+        controller = null;
+      }
+    };
+
+    // Function to stop the generation
+    const stopGeneration = () => {
+      if (controller) {
+        controller.abort();
+      }
+    };
+
+    // Example usage of getChatResponse
+    async function main() {
+      const userMessage = 'Hello, how are you?';
+      const response = await generate(userMessage);
+      console.log('AI Response:', response);
+    }
+
+    main().catch(console.error);
+    </script>
+</body>
+</html>

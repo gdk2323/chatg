@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Scraping</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="input-group">
+      <input type="text" id="urlInput" placeholder="Enter URL">
+      <button id="pasteButton">Paste</button>
+    </div>
+    
+    <div class="buttonContainer">
+      <button onclick="scrapeContent()" id="scrapeButton">Scrape</button>
+      <!--<button onclick="translateContent()" id="translateButton">Translate</button>-->
+      <!--<button onclick="translateContent2()" id="translateButton2">Translate 2</button>-->
+      <!--<button onclick="copyText()">Copy</button>-->
+    </div>
+  </div>
+  
+  <div id="content" class="content"></div>
+  <div class="backToTop" id="backToTop" onclick="scrollToTop()">Back to Top</div>
+  
+  <div class="buttonContainer">
+    <button onclick="goToPrevChapterLink()">Prev Chapter</button>
+    <button onclick="goToNextChapterLink()">Next Chapter</button>
+  </div>
+  
+  <script src="index2.js"></script>
+</body>
+</html>
